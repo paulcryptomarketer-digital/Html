@@ -109,7 +109,7 @@
                 </button>
             </div>
         </div>
-        <iframe id="website-preview" class="w-full flex-grow bg-white border-none"></iframe>
+        <iframe id="website-preview" class="w-full flex-grow bg-white border-none"></iframe> <textarea id="code-view" class="hidden w-full flex-grow bg-gray-900 text-green-400 p-4 font-mono text-sm" readonly></textarea>
     </div>
 
     <script>
@@ -226,7 +226,26 @@
             a.click();
             document.body.removeChild(a);
             URL.revokeObjectURL(url);
-        });
-    </script>
+        }); // Auto-Find and Toggle Code Button
+setTimeout(() => {
+    const buttons = document.querySelectorAll('button');
+    buttons.forEach(btn => {
+        if(btn.innerText.includes('< / >') || btn.innerHTML.includes('&lt; / &gt;') || btn.innerHTML.includes('< / >')) {
+            btn.addEventListener('click', () => {
+                const iframe = document.getElementById('website-preview');
+                const codeBox = document.getElementById('code-view');
+                iframe.classList.toggle('hidden');
+                codeBox.classList.toggle('hidden');
+                try {
+                    codeBox.value = latestGeneratedCode;
+                } catch(e) {
+                    codeBox.value = iframe.srcdoc || "Generate a site first to see the code!";
+                }
+            });
+        }
+    });
+}, 500);
+
+    </script> 
 </body>
 </html>
