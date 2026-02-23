@@ -159,7 +159,7 @@
                         "Content-Type": "application/json",
                         "Authorization": `Bearer ${API_KEY}`
                     },
-                      body: JSON.stringify({
+                          body: JSON.stringify({
         model: "llama-3.3-70b-versatile", // Fast
         stream: true, // 🟢 THIS TURNS ON LIVE TYPING
         messages: [
@@ -170,6 +170,8 @@
             { role: "user", content: userRequest }
         ],
         temperature: 0.7
+    })
+
     })
 
                         
@@ -247,11 +249,7 @@ latestGeneratedCode = generatedHTML;
         });
 
         // 5. NEW FEATURE: Copy Code Button
-        document.getElementById('copy-code-btn').addEventListener('click', () => {
-            if(!latestGeneratedCode) return;
-            navigator.clipboard.writeText(latestGeneratedCode).then(() => {
-                const btn = document.getElementById('copy-code-btn');
-                btn.innerHTML = '<i class="fa-solid fa-check text-green-400"></i> <span class="hidden sm:inline">Copied!</span>';
+        document.getElementById('copy-code-btn').addEventListener('click', () HTML = '<i class="fa-solid fa-check text-green-400"></i> <span class="hidden sm:inline">Copied!</span>';
                 setTimeout(() => {
                     btn.innerHTML = '<i class="fa-solid fa-copy"></i> <span class="hidden sm:inline">Copy Code</span>';
                 }, 2000);
