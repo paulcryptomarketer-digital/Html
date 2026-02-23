@@ -159,38 +159,83 @@
                         "Content-Type": "application/json",
                         "Authorization": `Bearer ${API_KEY}`
                     },
-                    body: JSON.stringify({
-                        model: "llama-3.3-70b-versatile", // Fast model
-                        messages: [
-                            {
-                                role: "system",
-                                content: "You are an expert web developer. Reply ONLY with complete, functional HTML code that uses Tailwind CSS via CDN. Do not include markdown formatting like ```html, explanations, or backticks. Start immediately with <!DOCTYPE html>."
-                            },
-                            { role: "user", content: userRequest }
+                      body: JSON.stringify({
+        model: "llama-3.3-70b-versatile", // Fast
+        stream: true, // 🟢 THIS TURNS ON LIVE TYPING
+        messages: [
+            {
+                role: "system",
+                content: "You are an expert web developer. ONLY output raw, valid HTML code. NEVER use markdown formatting or ```html blocks. Every website must have a modern 2026 design."
+            },
+            { role: "user", content: userRequest }
+        ],
+        temperature: 0.7
+    })
+
+                        
+                    
+                            
+                    
+                            
+                        
+                            
                         ],
-                        temperature: 0.7
+
                     })
                 });
 
-                const data = await response.json();
-                
-                if (data.error) {
-                    alert("API Error: " + data.error.message);
-                    return;
+                // 🟢 THE DUAL-STREAMING ENGINE
+const reader = response.body.getReader();
+const decoder = new TextDecoder("utf-8");
+let generatedHTML = "";
+
+// Un-hide the preview container immediately so you can watch it build
+previewContainer.classList.remove('hidden');
+aiPromptBox.classList.add('hidden');
+
+while (true) {
+    const { done, value } = await reader.read();
+    if (done) break;
+
+    const chunk = decoder.decode(value, { stream: true });
+    const lines = chunk.split("\n");
+
+    for (const line of lines) {
+        if (line.startsWith("data: ") && line !== "data: [DONE]") {
+            try {
+                const parsed = JSON.parse(line.replace("data: ", ""));
+                const content = parsed.choices[0].delta.content;
+                if (content) {
+                    generatedHTML += content;
+                    
+                    // 1. THIS BUILDS THE VISUAL WEBSITE LIVE
+                    previewIframe.srcdoc = generatedHTML; 
+                    
+                    // 2. THIS TYPES THE RAW CODE LIVE
+                    document.getElementById('code-view').value = generatedHTML;
                 }
+            } catch (e) {
+                // Ignore incomplete chunks from the internet
+            }
+        }
+    }
+}
 
-                // Clean the generated code
-                latestGeneratedCode = data.choices[0].message.content;
-                latestGeneratedCode = latestGeneratedCode.replace(/```html/g, '').replace(/```/g, '').trim();
+// Save the final code so your Copy/Download buttons work
+latestGeneratedCode = generatedHTML;
 
-                // Open preview and inject code
-                previewContainer.classList.remove('hidden');
-                aiPromptBox.classList.add('hidden'); 
                 
-                const iframeDoc = previewIframe.contentWindow.document;
-                iframeDoc.open();
-                iframeDoc.write(latestGeneratedCode);
-                iframeDoc.close();
+                
+                    
+                
+                
+
+            
+
+                
+                
+                
+            
 
             } catch (error) {
                 console.error(error);
