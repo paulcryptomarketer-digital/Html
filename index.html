@@ -169,27 +169,20 @@
             },
             { role: "user", content: userRequest }
         ],
-        temperature: 0.7
-    })
+                temperature: 0.7
+            })
+    });
 
-    })
 
-                        
-                    
-                            
-                    
-                            
-                        
-                            
-                        ],
+    // 🟢 THE DUAL-STREAMING ENGINE
+    const reader = response.body.getReader();
+    const decoder = new TextDecoder("utf-8");
+    let generatedHTML = "";
 
-                    })
-                });
+    // 🟢 THIS WIPES THE OLD "SCREENSHOT" AWAY SO THE NEW SITE CAN MOVE
+    previewIframe.srcdoc = ""; 
+    document.getElementById('code-view').value = "";
 
-                // 🟢 THE DUAL-STREAMING ENGINE
-const reader = response.body.getReader();
-const decoder = new TextDecoder("utf-8");
-let generatedHTML = "";
 
 // Un-hide the preview container immediately so you can watch it build
 previewContainer.classList.remove('hidden');
