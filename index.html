@@ -241,8 +241,12 @@ latestGeneratedCode = generatedHTML;
             }
         });
 
-        // 5. NEW FEATURE: Copy Code Button
-        document.getElementById('copy-code-btn').addEventListener('click', () HTML = '<i class="fa-solid fa-check text-green-400"></i> <span class="hidden sm:inline">Copied!</span>';
+               // 5. NEW FEATURE: Copy Code Button
+        document.getElementById('copy-code-btn').addEventListener('click', () => {
+            if (!latestGeneratedCode) return;
+            navigator.clipboard.writeText(latestGeneratedCode).then(() => {
+                const btn = document.getElementById('copy-code-btn');
+                btn.innerHTML = '<i class="fa-solid fa-check text-green-400"></i> <span class="hidden sm:inline">Copied!</span>';
                 setTimeout(() => {
                     btn.innerHTML = '<i class="fa-solid fa-copy"></i> <span class="hidden sm:inline">Copy Code</span>';
                 }, 2000);
@@ -262,25 +266,27 @@ latestGeneratedCode = generatedHTML;
             a.click();
             document.body.removeChild(a);
             URL.revokeObjectURL(url);
-        }); // Auto-Find and Toggle Code Button
-setTimeout(() => {
-    const buttons = document.querySelectorAll('button');
-    buttons.forEach(btn => {
-        if(btn.innerText.includes('< / >') || btn.innerHTML.includes('&lt; / &gt;') || btn.innerHTML.includes('< / >')) {
-            btn.addEventListener('click', () => {
-                const iframe = document.getElementById('website-preview');
-                const codeBox = document.getElementById('code-view');
-                iframe.classList.toggle('hidden');
-                codeBox.classList.toggle('hidden');
-                try {
-                    codeBox.value = latestGeneratedCode;
-                } catch(e) {
-                    codeBox.value = iframe.srcdoc || "Generate a site first to see the code!";
+        }); 
+
+        // Auto-Find and Toggle Code Button
+        setTimeout(() => {
+            const buttons = document.querySelectorAll('button');
+            buttons.forEach(btn => {
+                if(btn.innerText.includes('< / >') || btn.innerHTML.includes('&lt; / &gt;') || btn.innerHTML.includes('< / >')) {
+                    btn.addEventListener('click', () => {
+                        const iframe = document.getElementById('website-preview');
+                        const codeBox = document.getElementById('code-view');
+                        iframe.classList.toggle('hidden');
+                        codeBox.classList.toggle('hidden');
+                        try {
+                            codeBox.value = latestGeneratedCode;
+                        } catch(e) {
+                            codeBox.value = iframe.srcdoc || "Generate a site first to see the code!";
+                        }
+                    });
                 }
             });
-        }
-    });
-}, 500);
+        }, 500);
 
     </script> 
 </body>
