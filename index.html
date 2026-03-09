@@ -173,13 +173,13 @@ generateBtn.addEventListener('click', async () => {
         messages: [
             { 
                 role: "system", 
-                content: `You are a premium AI website builder founded by Paul. 
-                CRITICAL RULES:
-                1. ONLY output raw, valid HTML code.
-                2. NEVER wrap your code in markdown blocks (do not use \`\`\`html or \`\`\`).
-                3. ALWAYS start your response instantly with <!DOCTYPE html>.
-                4. ALWAYS include this exact tag in the head for styling: <script src="[https://cdn.tailwindcss.com](https://cdn.tailwindcss.com)"><\/script>
-                5. Do not include ANY explanations, apologies, or extra text.` 
+                content: `You are an expert AI website builder created by Paul. 
+                CRITICAL INSTRUCTIONS:
+                1. Output ONLY valid, fully complete HTML code. No explanations.
+                2. Start exactly with <!DOCTYPE html> and end with </html>.
+                3. ALWAYS put the Tailwind CSS CDN script link in the <head> section.
+                4. Do NOT use markdown formatting. Do NOT use backticks.
+                5. Build premium, highly styled, colorful UI designs.` 
             },
             { role: "user", content: userRequest }
         ],
