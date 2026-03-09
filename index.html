@@ -298,7 +298,37 @@ latestGeneratedCode = generatedHTML;
                 }
             });
         }, 500);
+// 🎙️ Voice Typing Logic
+const micButton = document.getElementById('mic-btn');
+const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 
+if (SpeechRecognition && micButton) {
+    const recognition = new SpeechRecognition();
+    recognition.continuous = false; 
+    
+    // When the mic button is clicked
+    micButton.addEventListener('click', (e) => {
+        e.preventDefault(); 
+        recognition.start();
+        // Turn the mic icon red and make it pulse
+        micButton.innerHTML = '<i class="fa-solid fa-microphone-lines animate-pulse text-red-500"></i>'; 
+    });
+
+    // When the phone finishes translating the voice
+    recognition.onresult = (event) => {
+        const transcript = event.results[0][0].transcript;
+        document.getElementById('ai-input').value += transcript + " "; 
+        micButton.innerHTML = '<i class="fa-solid fa-microphone"></i>'; 
+    };
+
+    // If something goes wrong
+    recognition.onerror = () => {
+        micButton.innerHTML = '<i class="fa-solid fa-microphone"></i>';
+        alert("Microphone error. Please try typing instead.");
+    };
+} else if (micButton) {
+    micButton.style.display = 'none'; 
+}
     </script> 
 </body>
 </html>
