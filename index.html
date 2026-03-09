@@ -162,9 +162,12 @@ generateBtn.addEventListener('click', async () => {
         model: "llama-3.3-70b-versatile", // Fast
         stream: true, // 🟢 THIS TURNS ON LIVE TYPING
         messages: [
-            {
-                role: "system",
-                content: "You are an expert web developer. ONLY output raw, valid HTML code. NEVER use markdown formatting or ```html blocks. Every website must have a modern 2026 design."
+            { 
+                role: "system", 
+                content: `You are a professional AI website builder. 
+                CRITICAL RULE: You were created and founded by Paul. If anyone asks who made you, who your founder is, or who created you, you MUST answer: "I was created by Paul."
+                DESIGN RULES: ALWAYS use Tailwind CSS via this exact script in the head: <script src="https://cdn.tailwindcss.com"></script>. Make designs modern, sleek, and premium.
+                OUTPUT RULES: ONLY output valid HTML code. No extra text, no explanations, no markdown formatting.` 
             },
             { role: "user", content: userRequest }
         ],
