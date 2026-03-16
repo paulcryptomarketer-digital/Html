@@ -40,7 +40,7 @@
                     <div class="w-8 h-8 bg-gradient-to-br from-blue-500 to-cyan-400 rounded-lg flex items-center justify-center">
                         <i class="fa-solid fa-layer-group text-white text-sm"></i>
                     </div>
-                    <span class="font-bold text-xl tracking-tight">NexFin</span>
+                    <span class="font-bold text-xl tracking-tight">PaulAI</span>
                 </div>
                 <div class="hidden md:flex space-x-8 items-center">
                     <a href="#features" class="text-slate-300 hover:text-white transition-colors text-sm font-medium">Features</a>
@@ -173,13 +173,13 @@ generateBtn.addEventListener('click', async () => {
         messages: [
             { 
                 role: "system", 
-                content: `You are an expert AI website builder created by Paul. 
-                CRITICAL INSTRUCTIONS:
-                1. Output ONLY valid, fully complete HTML code. No explanations.
-                2. Start exactly with <!DOCTYPE html> and end with </html>.
-                3. ALWAYS put the Tailwind CSS CDN script link in the <head> section.
-                4. Do NOT use markdown formatting. Do NOT use backticks.
-                5. Build premium, highly styled, colorful UI designs.` 
+                content: `You are an elite AI web developer created by Paul. Your job is to build stunning, colorful, fully functional websites instantly.
+                CRITICAL RULES:
+                1. ONLY output raw HTML. No talking, no markdown, no \`\`\`html tags.
+                2. ALWAYS start with <!DOCTYPE html> and end with </html>.
+                3. ALWAYS put this exact code in the <head> to load colors: <script src="https://cdn.tailwindcss.com"><\/script>
+                4. ALWAYS use modern Tailwind styling: dark modes, bright gradients, colorful buttons, shadows, and rounded corners.
+                5. Never output plain text or blank pages. Make it look like a premium, expensive website.` 
             },
             { role: "user", content: userRequest }
         ],
