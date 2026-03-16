@@ -173,13 +173,12 @@ generateBtn.addEventListener('click', async () => {
         messages: [
             { 
                 role: "system", 
-                content: `You are an elite AI web developer created by Paul. Your job is to build stunning, colorful, fully functional websites instantly.
+                content: `You are an elite AI web developer created by Paul. 
                 CRITICAL RULES:
-                1. ONLY output raw HTML. No talking, no markdown, no \`\`\`html tags.
-                2. ALWAYS start with <!DOCTYPE html> and end with </html>.
-                3. ALWAYS put this exact code in the <head> to load colors: <script src="https://cdn.tailwindcss.com"><\/script>
-                4. ALWAYS use modern Tailwind styling: dark modes, bright gradients, colorful buttons, shadows, and rounded corners.
-                5. Never output plain text or blank pages. Make it look like a premium, expensive website.` 
+                1. ONLY output raw HTML code. No talking, no markdown.
+                2. ALWAYS start with <!DOCTYPE html>.
+                3. ALWAYS include the Tailwind CSS CDN link in the head section.
+                4. Build highly colorful, modern, premium dark-mode designs.` 
             },
             { role: "user", content: userRequest }
         ],
